@@ -1,0 +1,480 @@
+/* Bien mau sac va bong do dung chung */
+:root {
+    --primary: #264653;
+    --primary-light: #2a9d8f;
+    --accent: #e76f51;
+    --bg: #f5f7fb;
+    --text: #2e3135;
+    --muted: #6d757d;
+    --card-bg: #ffffff;
+    --border: #dbe2ea;
+    --error: #d9534f;
+    --shadow: 0 14px 28px rgba(38, 70, 83, 0.12);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Body voi font than thien va nen sang */
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background-color: var(--bg);
+    scroll-behavior: smooth;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    border-radius: 12px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: min(90%, 1120px);
+    margin: 0 auto;
+}
+
+/* Header sticky cung bong do tao do noi */
+.site-header {
+    background-color: var(--primary);
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1rem 0;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.7rem;
+    letter-spacing: 0.6px;
+}
+
+/* Nut hamburger xuat hien tren thiet bi nho */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.45rem 0.7rem;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 12px;
+    color: #ffffff;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu-toggle__bar {
+    width: 22px;
+    height: 2px;
+    border-radius: 999px;
+    background: currentColor;
+}
+
+.menu-toggle__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.18);
+}
+
+/* Dieu huong chinh mac dinh nam ngang */
+.site-nav {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.site-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.75rem;
+    margin: 0;
+    padding: 0;
+}
+
+.site-nav a {
+    color: #ffffff;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+    color: var(--primary-light);
+}
+
+/* Khoi gioi thieu dau trang */
+.intro {
+    margin: 3rem 0 2rem;
+}
+
+.intro h2 {
+    margin-bottom: 0.75rem;
+    color: var(--primary);
+    font-size: clamp(1.9rem, 3vw, 2.5rem);
+}
+
+/* Thanh cong cu tim kiem, loc gia va nut them */
+.product-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.search-group {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ffffff;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.9rem;
+    box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.08);
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.filter-group select {
+    border: none;
+    font: inherit;
+    background: transparent;
+    outline: none;
+    color: var(--text);
+}
+
+/* O nhap tim kiem co bo tron */
+.search-group input {
+    padding: 0.8rem 1.1rem;
+    border-radius: 32px;
+    border: 1px solid var(--border);
+    min-width: 280px;
+    font: inherit;
+    background-color: #ffffff;
+    box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.08);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-group input:focus-visible {
+    border-color: var(--primary-light);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
+}
+
+button {
+    font: inherit;
+}
+
+.search-group button,
+.toggle-btn,
+.primary-btn,
+.secondary-btn {
+    border: none;
+    border-radius: 30px;
+    padding: 0.75rem 1.7rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.4px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.search-group button,
+.primary-btn {
+    background: linear-gradient(135deg, var(--primary-light), var(--accent));
+    color: #ffffff;
+}
+
+.toggle-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #ffffff;
+}
+
+.secondary-btn {
+    background: #ffffff;
+    color: var(--primary);
+    border: 1px solid var(--primary-light);
+}
+
+.search-group button:hover,
+.search-group button:focus-visible,
+.toggle-btn:hover,
+.toggle-btn:focus-visible,
+.primary-btn:hover,
+.primary-btn:focus-visible,
+.secondary-btn:hover,
+.secondary-btn:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(38, 70, 83, 0.2);
+}
+
+/* Card dung chung cho form va san pham */
+.card {
+    background-color: var(--card-bg);
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: var(--shadow);
+    padding: 1.8rem;
+}
+
+.form-desc {
+    margin-top: 0;
+    color: var(--muted);
+}
+
+/* Form co hieu ung truot mo */
+.collapsible {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1.8rem;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.35s ease, padding 0.4s ease;
+    pointer-events: none;
+}
+
+.collapsible.is-open {
+    opacity: 1;
+    padding: 1.8rem;
+    pointer-events: auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+label {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+input,
+textarea {
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 0.85rem 1rem;
+    background-color: #fdfdfd;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    border-color: var(--primary-light);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.15);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.error-message {
+    margin: -0.5rem 0 1rem;
+    color: var(--error);
+    font-weight: 600;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.product-grid > h2 {
+    grid-column: 1 / -1;
+    margin: 0;
+    text-align: center;
+    color: var(--primary);
+    font-size: 2rem;
+}
+
+.product-item {
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.product-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.product-name {
+    margin: 0;
+    font-size: 1.35rem;
+    color: var(--primary);
+}
+
+.product-price {
+    margin: 0;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--muted);
+    margin: 1rem 0;
+}
+
+.contact {
+    margin: 3.5rem 0;
+    text-align: center;
+    color: var(--muted);
+}
+
+.site-footer {
+    background-color: var(--primary);
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Hieu ung fade khi danh sach san pham thay doi */
+.fade-enter {
+    opacity: 0;
+    transform: translateY(16px);
+}
+
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .product-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-group {
+        width: 100%;
+    }
+
+    .search-group input {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .filter-group {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .site-nav {
+        width: 100%;
+        order: 1;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, opacity 0.25s ease;
+        opacity: 0;
+    }
+
+    .site-header.nav-open .site-nav {
+        max-height: 320px;
+        opacity: 1;
+    }
+
+    .site-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.85rem;
+        width: 100%;
+        padding: 0.85rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .site-nav a {
+        width: 100%;
+        padding: 0.3rem 0;
+    }
+}

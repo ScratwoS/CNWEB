@@ -17,11 +17,11 @@
                 <span class="menu-toggle__bar"></span>
                 <span class="menu-toggle__label">Menu</span>
             </button>
-            <nav id="primary-nav" class="site-nav" aria-label="Điều hướng chính">
+            <nav id="primary-nav" class="site-nav" aria-label="Dieu huong chinh">
                 <ul>
-                    <li><a href="#home">Trang chủ</a></li>
-                    <li><a href="#product-list">Sản phẩm</a></li>
-                    <li><a href="#contact">Liên hệ</a></li>
+                    <li><a href="#home">Trang chu</a></li>
+                    <li><a href="#product-list">San pham</a></li>
+                    <li><a href="#contact">Lien he</a></li>
                 </ul>
             </nav>
         </div>
@@ -34,18 +34,29 @@
             <p>Kham pha nhung tua sach tuyen chon ky luong cung doi ngu tu van tan tam tai Cua hang Sach cua Quang.</p>
         </section>
 
-        <!-- Cong cu tim kiem va nut bat form -->
-        <section class="product-controls" aria-label="Tùy chọn sản phẩm">
+        <!-- Cong cu tim kiem, nut mo form va bo loc gia -->
+        <section class="product-controls" aria-label="Tuy chon san pham">
             <div class="search-group">
                 <label for="searchInput" class="sr-only">Tim kiem san pham</label>
                 <input type="text" id="searchInput" placeholder="Tim kiem san pham..." autocomplete="off">
                 <button id="searchBtn" type="button">Tim</button>
             </div>
+
+            <div class="filter-group">
+                <label for="priceFilter">Khoang gia</label>
+                <select id="priceFilter">
+                    <option value="all">Tat ca</option>
+                    <option value="under-100">Duoi 100.000 VND</option>
+                    <option value="100-150">100.000 - 150.000 VND</option>
+                    <option value="over-150">Tren 150.000 VND</option>
+                </select>
+            </div>
+
             <button id="addProductBtn" type="button" class="toggle-btn">Them san pham</button>
         </section>
 
-        <!-- Form them san pham moi, an khi chua dung -->
-        <form id="addProductForm" class="card hidden" aria-labelledby="add-product-heading" novalidate>
+        <!-- Form them san pham voi animation truot mo -->
+        <form id="addProductForm" class="card collapsible" aria-labelledby="add-product-heading" novalidate>
             <h2 id="add-product-heading">Them san pham moi</h2>
             <p class="form-desc">Nhap thong tin san pham de cap nhat danh sach va luu vao trinh duyet.</p>
 
@@ -75,7 +86,7 @@
         <!-- Danh sach san pham se do JavaScript dung tu localStorage -->
         <section id="product-list" class="product-grid" aria-labelledby="products-heading">
             <h2 id="products-heading">San pham noi bat</h2>
-            <!-- Các thẻ article sản phẩm sẽ được render bằng script -->
+            <!-- JS se chen cac article san pham vao day -->
         </section>
 
         <!-- Khoi thong tin lien he -->
@@ -92,7 +103,7 @@
         </div>
     </footer>
 
-    <!-- Nhu'ng script kem defer de xu ly tuong tac va luu localStorage -->
+    <!-- Nhung script kem defer de xu ly tuong tac, animation va luu localStorage -->
     <script src="script.js" defer></script>
 </body>
 </html>
