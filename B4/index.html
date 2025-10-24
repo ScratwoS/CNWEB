@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng sách của Quang</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header: logo chữ + menu điều hướng có nút thu gọn -->
+    <header class="site-header">
+        <div class="container">
+            <h1 class="site-title">Cửa hàng sách của Quang</h1>
+            <button id="navToggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+                <span class="menu-toggle__bar"></span>
+                <span class="menu-toggle__bar"></span>
+                <span class="menu-toggle__bar"></span>
+                <span class="menu-toggle__label">Menu</span>
+            </button>
+            <nav id="primary-nav" class="site-nav" aria-label="Điều hướng chính">
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#product-list">Sản phẩm</a></li>
+                    <li><a href="#contact">Liên hệ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Đoạn giới thiệu mở đầu -->
+        <section class="intro" aria-labelledby="intro-heading">
+            <h2 id="intro-heading">Không gian sách tại Thanh Xuân, Hà Nội</h2>
+            <p>Khám phá những tựa sách được tuyển chọn kỹ lưỡng cùng đội ngũ tư vấn tận tâm tại Cửa hàng sách của Quang.</p>
+        </section>
+
+        <!-- Công cụ tìm kiếm và nút bật form -->
+        <section class="product-controls" aria-label="Tùy chọn sản phẩm">
+            <div class="search-group">
+                <label for="searchInput" class="sr-only">Tìm kiếm sản phẩm</label>
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." autocomplete="off">
+                <button id="searchBtn" type="button">Tìm</button>
+            </div>
+            <button id="addProductBtn" type="button" class="toggle-btn">Thêm sản phẩm</button>
+        </section>
+
+        <!-- Form thêm sản phẩm mới, ẩn khi chưa dùng -->
+        <form id="addProductForm" class="card hidden" aria-labelledby="add-product-heading" novalidate>
+            <h2 id="add-product-heading">Thêm sản phẩm mới</h2>
+            <p class="form-desc">Nhập thông tin sản phẩm để cập nhật danh sách ngay trên trang.</p>
+
+            <div class="form-group">
+                <label for="newName">Tên sản phẩm</label>
+                <input type="text" id="newName" name="newName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newPrice">Giá (VND)</label>
+                <input type="number" id="newPrice" name="newPrice" min="1000" step="1000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newDesc">Mô tả</label>
+                <textarea id="newDesc" name="newDesc" rows="3" minlength="10" required></textarea>
+            </div>
+
+            <p id="errorMsg" class="error-message" role="alert" aria-live="polite" hidden></p>
+
+            <div class="form-actions">
+                <button type="submit" class="primary-btn">Thêm sản phẩm</button>
+                <button type="button" id="cancelBtn" class="secondary-btn">Hủy</button>
+            </div>
+        </form>
+
+        <!-- Danh sách sản phẩm mặc định của cửa hàng -->
+        <section id="product-list" class="product-grid" aria-labelledby="products-heading">
+            <h2 id="products-heading">Sản phẩm nổi bật</h2>
+
+            <article class="product-item card">
+                <img src="https://via.placeholder.com/320x200" alt="Bìa sách Kể chuyện đêm khuya">
+                <div class="product-content">
+                    <h3 class="product-name">Kể chuyện đêm khuya</h3>
+                    <p>Bộ truyện ngắn giúp bạn thư giãn trước khi ngủ với những câu chuyện nhẹ nhàng và nhân văn.</p>
+                    <p class="product-price">Giá: 95.000 VND</p>
+                </div>
+            </article>
+
+            <article class="product-item card">
+                <img src="https://via.placeholder.com/320x200" alt="Bìa sách Dấu ấn lịch sử Việt">
+                <div class="product-content">
+                    <h3 class="product-name">Dấu ấn lịch sử Việt</h3>
+                    <p>Tổng hợp các sự kiện quan trọng của lịch sử Việt Nam, được trình bày sinh động và dễ hiểu.</p>
+                    <p class="product-price">Giá: 120.000 VND</p>
+                </div>
+            </article>
+
+            <article class="product-item card">
+                <img src="https://via.placeholder.com/320x200" alt="Bìa sách Cẩm nang làm vườn xanh">
+                <div class="product-content">
+                    <h3 class="product-name">Cẩm nang làm vườn xanh</h3>
+                    <p>Hướng dẫn chi tiết từ chọn giống cây đến chăm sóc khu vườn nhỏ tại nhà.</p>
+                    <p class="product-price">Giá: 88.000 VND</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- Khối thông tin liên hệ -->
+        <section id="contact" class="contact card" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">Liên hệ</h2>
+            <p>Địa chỉ: 45 Nguyễn Trãi, Thanh Xuân, Hà Nội</p>
+            <p>Email: lienhe@quangbookstore.vn | Điện thoại: 0987 654 321</p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Cửa hàng sách của Quang. Mọi quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <!-- Nhúng script kèm defer để xử lý tương tác sau khi DOM sẵn sàng -->
+    <script src="script.js" defer></script>
+</body>
+</html>

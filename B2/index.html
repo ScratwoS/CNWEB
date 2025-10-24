@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng sách của Quang</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header: tên cửa hàng + điều hướng chính -->
+    <header class="site-header">
+        <div class="container">
+            <h1 class="site-title">Cửa hàng sách của Quang</h1>
+            <nav class="site-nav" aria-label="Điều hướng chính">
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#product-list">Sản phẩm</a></li>
+                    <li><a href="#contact-form">Liên hệ</a></li>
+                    <li><a href="#">Khuyến mãi</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero giới thiệu nhanh về cửa hàng -->
+        <section class="hero" aria-labelledby="hero-heading">
+            <div class="container">
+                <h2 id="hero-heading">Không gian sách tại Thanh Xuân, Hà Nội</h2>
+                <p>Ghé thăm Cửa hàng sách của Quang để khám phá những tựa sách tuyển chọn kỹ lưỡng, phục vụ nhu cầu đọc cho cả gia đình.</p>
+            </div>
+        </section>
+
+        <!-- Lưới sản phẩm nổi bật, mỗi sản phẩm là một article -->
+        <section id="product-list" class="container" aria-labelledby="products-heading">
+            <h2 id="products-heading">Sản phẩm nổi bật</h2>
+
+            <article class="product-item">
+                <img src="https://via.placeholder.com/320x200" alt="Bìa sách Kể chuyện đêm khuya">
+                <div class="product-content">
+                    <h3>Kể Chuyện Đêm Khuya</h3>
+                    <p>Bộ truyện ngắn giúp bạn thư giãn trước khi ngủ với những câu chuyện nhẹ nhàng và nhân văn.</p>
+                    <p class="product-price">Giá: 95.000 VND</p>
+                    <a class="product-link" href="#">Xem chi tiết</a>
+                </div>
+            </article>
+
+            <article class="product-item">
+                <img src="https://via.placeholder.com/320x200" alt="Bìa sách Dấu ấn lịch sử Việt">
+                <div class="product-content">
+                    <h3>Dấu Ấn Lịch Sử Việt</h3>
+                    <p>Tổng hợp các sự kiện quan trọng của lịch sử Việt Nam, được trình bày sinh động và dễ hiểu.</p>
+                    <p class="product-price">Giá: 120.000 VND</p>
+                    <a class="product-link" href="#">Xem chi tiết</a>
+                </div>
+            </article>
+
+            <article class="product-item">
+                <img src="https://via.placeholder.com/320x200" alt="Bìa sách Cẩm nang làm vườn xanh">
+                <div class="product-content">
+                    <h3>Cẩm Nang Làm Vườn Xanh</h3>
+                    <p>Hướng dẫn từ bước chọn giống cây, chăm sóc đến trang trí khu vườn nhỏ tại nhà.</p>
+                    <p class="product-price">Giá: 88.000 VND</p>
+                    <a class="product-link" href="#">Xem chi tiết</a>
+                </div>
+            </article>
+        </section>
+
+        <!-- Khối form liên hệ ở cuối trang -->
+        <section id="contact-form" aria-labelledby="contact-heading">
+            <div class="container">
+                <h2 id="contact-heading">Liên hệ với chúng tôi</h2>
+                <p>Bạn có câu hỏi hay gợi ý tựa sách mới? Hãy gửi lời nhắn để đội ngũ Quang Bookstore hỗ trợ ngay.</p>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Tên</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Nội dung</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+
+                    <button type="submit">Gửi thông tin</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Cửa hàng sách của Quang. Mọi quyền được bảo lưu.</p>
+            <p>Địa chỉ: 45 Nguyễn Trãi, Thanh Xuân, Hà Nội</p>
+        </div>
+    </footer>
+</body>
+</html>

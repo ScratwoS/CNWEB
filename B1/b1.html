@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng sách của Quang</title>
+</head>
+<body>
+    <!-- Header: hiển thị tên cửa hàng và menu điều hướng cơ bản -->
+    <header>
+        <h1>Cửa hàng sách của Quang</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Sản phẩm</a></li>
+                <li><a href="#">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Section giới thiệu giúp khách nắm nhanh thông tin nổi bật của cửa hàng -->
+        <section aria-labelledby="store-intro-heading">
+            <h2 id="store-intro-heading">Giới thiệu cửa hàng</h2>
+            <p>Chào mừng bạn đến với Cửa hàng sách của Quang tại Thanh Xuân, Hà Nội, nơi hội tụ những tựa sách hay dành cho mọi lứa tuổi.</p>
+        </section>
+
+        <!-- Danh sách sản phẩm mẫu, mỗi sản phẩm là một article riêng biệt -->
+        <section aria-labelledby="featured-products-heading">
+            <h2 id="featured-products-heading">Sản phẩm nổi bật</h2>
+
+            <article class="product-item">
+                <h3>Sách kể chuyện đêm khuya</h3>
+                <img src="https://via.placeholder.com/200x140" alt="Bìa sách kể chuyện đêm khuya">
+                <p>Bộ truyện ngắn giúp bạn thư giãn trước khi ngủ.</p>
+                <p>Giá: 95.000 VND</p>
+            </article>
+
+            <article class="product-item">
+                <h3>Dấu ấn lịch sử Việt</h3>
+                <img src="https://via.placeholder.com/200x140" alt="Bìa sách Dấu ấn lịch sử Việt">
+                <p>Biên soạn công phu về các sự kiện nổi bật của đất nước.</p>
+                <p>Giá: 120.000 VND</p>
+            </article>
+
+            <article class="product-item">
+                <h3>Cẩm nang làm vườn xanh</h3>
+                <img src="https://via.placeholder.com/200x140" alt="Bìa sách Cẩm nang làm vườn xanh">
+                <p>Hướng dẫn chi tiết để bạn tạo lập khu vườn nhỏ tại nhà.</p>
+                <p>Giá: 88.000 VND</p>
+            </article>
+        </section>
+
+        <!-- Form liên hệ đơn giản để khách gửi yêu cầu -->
+        <section aria-labelledby="contact-form-heading">
+            <h2 id="contact-form-heading">Liên hệ với chúng tôi</h2>
+            <form action="#" method="post">
+                <div>
+                    <label for="name">Tên</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div>
+                    <label for="message">Nội dung</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+
+                <button type="submit">Gửi</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer chứa thông tin bản quyền và địa điểm -->
+    <footer>
+        <p>&copy; 2025 Cửa hàng sách của Quang, Thanh Xuân, Hà Nội. Mọi quyền được bảo lưu.</p>
+    </footer>
+</body>
+</html>
