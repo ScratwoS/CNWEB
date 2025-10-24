@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cua hang Sach cua Quang</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header: logo chu + menu dieu huong co nut thu gon -->
+    <header class="site-header">
+        <div class="container">
+            <h1 class="site-title">Cua hang Sach cua Quang</h1>
+            <button id="navToggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+                <span class="menu-toggle__bar"></span>
+                <span class="menu-toggle__bar"></span>
+                <span class="menu-toggle__bar"></span>
+                <span class="menu-toggle__label">Menu</span>
+            </button>
+            <nav id="primary-nav" class="site-nav" aria-label="Điều hướng chính">
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#product-list">Sản phẩm</a></li>
+                    <li><a href="#contact">Liên hệ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Doan gioi thieu mo dau -->
+        <section class="intro" aria-labelledby="intro-heading">
+            <h2 id="intro-heading">Khong gian sach tai Thanh Xuan, Ha Noi</h2>
+            <p>Kham pha nhung tua sach tuyen chon ky luong cung doi ngu tu van tan tam tai Cua hang Sach cua Quang.</p>
+        </section>
+
+        <!-- Cong cu tim kiem va nut bat form -->
+        <section class="product-controls" aria-label="Tùy chọn sản phẩm">
+            <div class="search-group">
+                <label for="searchInput" class="sr-only">Tim kiem san pham</label>
+                <input type="text" id="searchInput" placeholder="Tim kiem san pham..." autocomplete="off">
+                <button id="searchBtn" type="button">Tim</button>
+            </div>
+            <button id="addProductBtn" type="button" class="toggle-btn">Them san pham</button>
+        </section>
+
+        <!-- Form them san pham moi, an khi chua dung -->
+        <form id="addProductForm" class="card hidden" aria-labelledby="add-product-heading" novalidate>
+            <h2 id="add-product-heading">Them san pham moi</h2>
+            <p class="form-desc">Nhap thong tin san pham de cap nhat danh sach va luu vao trinh duyet.</p>
+
+            <div class="form-group">
+                <label for="newName">Ten san pham</label>
+                <input type="text" id="newName" name="newName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newPrice">Gia (VND)</label>
+                <input type="number" id="newPrice" name="newPrice" min="1000" step="1000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newDesc">Mo ta</label>
+                <textarea id="newDesc" name="newDesc" rows="3" minlength="10" required></textarea>
+            </div>
+
+            <p id="errorMsg" class="error-message" role="alert" aria-live="polite" hidden></p>
+
+            <div class="form-actions">
+                <button type="submit" class="primary-btn">Them san pham</button>
+                <button type="button" id="cancelBtn" class="secondary-btn">Huy</button>
+            </div>
+        </form>
+
+        <!-- Danh sach san pham se do JavaScript dung tu localStorage -->
+        <section id="product-list" class="product-grid" aria-labelledby="products-heading">
+            <h2 id="products-heading">San pham noi bat</h2>
+            <!-- Các thẻ article sản phẩm sẽ được render bằng script -->
+        </section>
+
+        <!-- Khoi thong tin lien he -->
+        <section id="contact" class="contact card" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">Lien he</h2>
+            <p>Dia chi: 45 Nguyen Trai, Thanh Xuan, Ha Noi</p>
+            <p>Email: lienhe@quangbookstore.vn | Dien thoai: 0987 654 321</p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Cua hang Sach cua Quang. Moi quyen duoc bao luu.</p>
+        </div>
+    </footer>
+
+    <!-- Nhu'ng script kem defer de xu ly tuong tac va luu localStorage -->
+    <script src="script.js" defer></script>
+</body>
+</html>
