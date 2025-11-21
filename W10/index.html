@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body
+    class="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 text-slate-900 relative overflow-hidden"
+    style="
+      font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', sans-serif;
+    "
+  >
+    <div class="absolute inset-0 -z-10 pointer-events-none">
+      <div
+        class="absolute -left-10 top-0 h-56 w-56 rounded-full bg-blue-400/10 blur-3xl"
+      ></div>
+      <div
+        class="absolute right-10 -top-10 h-64 w-64 rounded-full bg-cyan-400/10 blur-3xl"
+      ></div>
+    </div>
+
+    <main class="relative mx-auto max-w-6xl space-y-6 px-4 py-10">
+      <header
+        class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between"
+      >
+        <div class="space-y-3">
+          <span
+            class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1 text-[11px] uppercase tracking-[0.25em] text-blue-600 shadow-sm"
+          >
+            <i class="fas fa-sparkles text-blue-300"></i>
+            User Hub
+          </span>
+          <div>
+            <h1
+              class="text-4xl font-black tracking-tight text-slate-900 md:text-5xl"
+            >
+              User Management Studio
+            </h1>
+            <p class="mt-2 max-w-2xl text-slate-600">
+              Quản lý, tìm kiếm và cập nhật người dùng với giao diện mới mẻ và
+              dễ thao tác.
+            </p>
+          </div>
+        </div>
+        <div class="grid min-w-[260px] grid-cols-2 gap-3">
+          <div
+            class="rounded-2xl border border-slate-200 bg-white p-4 text-center shadow-sm"
+          >
+            <p class="text-[11px] uppercase tracking-wide text-slate-300">
+              Tổng
+            </p>
+            <p class="text-3xl font-bold text-slate-900" id="totalUsersCount">
+              0
+            </p>
+          </div>
+          <div
+            class="rounded-2xl border border-slate-200 bg-white p-4 text-center shadow-sm"
+          >
+            <p class="text-[11px] uppercase tracking-wide text-slate-300">
+              Đang hiển thị
+            </p>
+            <p
+              class="text-3xl font-bold text-slate-900"
+              id="filteredUsersCount"
+            >
+              0
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid gap-3 md:grid-cols-[2fr,auto]">
+        <div
+          class="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
+        >
+          <i class="fas fa-magnifying-glass text-blue-500"></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Tìm theo tên..."
+            class="flex-1 bg-transparent text-slate-900 placeholder:text-slate-400 focus:outline-none"
+          />
+          <span class="hidden text-xs text-slate-500 md:inline">Live search</span>
+        </div>
+        <button
+          onclick="openModal()"
+          class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-500 to-sky-400 px-6 py-3 text-base font-semibold text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:shadow-blue-400/40"
+        >
+          <i class="fas fa-plus"></i>
+          Thêm người dùng
+        </button>
+      </section>
+
+      <section
+        class="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-lg"
+      >
+        <div id="loading" class="hidden py-10 text-center">
+          <div
+            class="mx-auto h-12 w-12 animate-spin rounded-full border-4 border-slate-200 border-t-blue-400"
+          ></div>
+          <p class="mt-3 text-slate-500">Đang tải dữ liệu...</p>
+        </div>
+
+        <div
+          id="emptyState"
+          class="hidden flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-slate-200 bg-slate-50 px-4 py-8 text-center text-slate-600"
+        >
+          <div
+            class="flex h-14 w-14 items-center justify-center rounded-full bg-blue-50 text-blue-500"
+          >
+            <i class="fas fa-inbox text-xl"></i>
+          </div>
+          <p class="text-lg font-semibold">Không tìm thấy người dùng</p>
+          <p class="text-sm text-slate-500">
+            Hãy thử lại với từ khóa khác hoặc thêm mới một người.
+          </p>
+        </div>
+
+        <div
+          id="userTableBody"
+          class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        ></div>
+
+        <div
+          id="paginationControls"
+          class="flex flex-col items-center gap-3 pt-2 sm:flex-row sm:justify-between"
+        >
+          <button
+            id="prevBtn"
+            onclick="changePage(-1)"
+            class="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-blue-300 hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <i class="fas fa-chevron-left text-xs"></i>
+            Trước
+          </button>
+          <span
+            id="pageInfo"
+            class="text-sm font-medium text-slate-700"
+            >Page 1 of 1</span
+          >
+          <button
+            id="nextBtn"
+            onclick="changePage(1)"
+            class="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-blue-300 hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Sau
+            <i class="fas fa-chevron-right text-xs"></i>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <div
+      id="userModal"
+      class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/40 px-4 py-8 backdrop-blur"
+    >
+      <div
+        class="relative w-full max-w-xl overflow-hidden rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-2xl"
+      >
+        <div
+          class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 via-sky-400 to-blue-300"
+        ></div>
+        <div class="flex items-center justify-between px-6 pt-6">
+          <div>
+            <p class="text-xs uppercase tracking-[0.2em] text-slate-400">
+              User form
+            </p>
+            <h2 id="modalTitle" class="text-2xl font-bold text-slate-900">
+              Add New User
+            </h2>
+          </div>
+          <button
+            onclick="closeModal()"
+            class="rounded-full bg-slate-100 p-2 text-slate-500 transition hover:bg-slate-200 hover:text-slate-700 focus:outline-none"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <form id="userForm" onsubmit="handleFormSubmit(event)" class="p-6">
+          <input type="hidden" id="userId" />
+          <div class="space-y-2">
+            <label for="name" class="text-sm font-semibold text-slate-700"
+              >Name</label
+            >
+            <input
+              id="name"
+              type="text"
+              required
+              class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-500 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              placeholder="Enter full name"
+            />
+          </div>
+          <div class="mt-4 space-y-2">
+            <label for="email" class="text-sm font-semibold text-slate-700"
+              >Email</label
+            >
+            <input
+              id="email"
+              type="email"
+              required
+              class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-500 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              placeholder="Enter email address"
+            />
+          </div>
+          <div class="mt-4 space-y-2">
+            <label for="phone" class="text-sm font-semibold text-slate-700"
+              >Phone</label
+            >
+            <input
+              id="phone"
+              type="text"
+              required
+              class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-500 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              placeholder="Enter phone number"
+            />
+          </div>
+          <div
+            class="mt-6 flex items-center justify-end gap-3 border-t border-slate-100 pt-4"
+          >
+            <button
+              type="button"
+              onclick="closeModal()"
+              class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100"
+            >
+              Hủy
+            </button>
+            <button
+              type="submit"
+              id="submitBtn"
+              class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-sky-400 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition hover:-translate-y-0.5 hover:shadow-blue-400/50"
+            >
+              <i class="fas fa-save"></i> Lưu
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="toast"
+      class="pointer-events-none fixed bottom-6 right-6 z-50 flex items-start gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm shadow-xl opacity-0 translate-y-4 scale-95 transition-all"
+    >
+      <div
+        id="toastBadge"
+        class="flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-blue-500"
+      >
+        <i id="toastIcon" class="fas fa-check"></i>
+      </div>
+      <div>
+        <p class="text-sm font-semibold text-slate-900">Thông báo</p>
+        <p id="toastMessage" class="text-sm text-slate-600">
+          Operation successful
+        </p>
+      </div>
+    </div>
+
+    <script>
+      const API_URL = "https://jsonplaceholder.typicode.com/users";
+      let users = [];
+      let filteredUsers = [];
+      let currentPage = 1;
+      const itemsPerPage = 5;
+
+      const api = axios.create({
+        baseURL: API_URL,
+        timeout: 10000,
+        headers: { "Content-Type": "application/json" },
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        fetchUsers();
+
+        document
+          .getElementById("searchInput")
+          .addEventListener("input", (e) => {
+            handleSearch(e.target.value);
+          });
+      });
+
+      async function fetchUsers() {
+        showLoading(true);
+        try {
+          const response = await api.get("/");
+          users = response.data;
+          filteredUsers = [...users];
+          renderTable();
+        } catch (error) {
+          console.error("Error fetching users:", error);
+          showToast("Failed to load users", "error");
+        } finally {
+          showLoading(false);
+        }
+      }
+
+      async function handleFormSubmit(event) {
+        event.preventDefault();
+
+        const id = document.getElementById("userId").value;
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+
+        const userData = { name, email, phone };
+        const submitBtn = document.getElementById("submitBtn");
+        const originalBtnText = submitBtn.innerHTML;
+
+        submitBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Đang lưu...';
+        submitBtn.disabled = true;
+
+        try {
+          if (id) {
+            await api.put(`/${id}`, userData);
+
+            const index = users.findIndex((u) => u.id == id);
+            if (index !== -1) {
+              users[index] = { ...users[index], ...userData };
+              showToast("Cập nhật người dùng thành công");
+            }
+          } else {
+            const response = await api.post("/", userData);
+            const newUser = {
+              ...response.data,
+              id:
+                users.length > 0 ? Math.max(...users.map((u) => u.id)) + 1 : 1,
+            };
+
+            users.unshift(newUser);
+            showToast("Tạo người dùng mới thành công");
+          }
+
+          handleSearch(document.getElementById("searchInput").value);
+          closeModal();
+        } catch (error) {
+          console.error("Error saving user:", error);
+          showToast("Error saving data", "error");
+        } finally {
+          submitBtn.innerHTML = originalBtnText;
+          submitBtn.disabled = false;
+        }
+      }
+
+      async function deleteUser(id) {
+        if (!confirm("Bạn có chắc chắn muốn xóa người dùng này?")) return;
+
+        try {
+          await api.delete(`/${id}`);
+
+          users = users.filter((u) => u.id != id);
+
+          showToast("Xóa người dùng thành công");
+          handleSearch(document.getElementById("searchInput").value);
+        } catch (error) {
+          console.error("Error deleting user:", error);
+          showToast("Failed to delete user", "error");
+        }
+      }
+
+      function renderTable() {
+        const listContainer = document.getElementById("userTableBody");
+        const emptyState = document.getElementById("emptyState");
+        const paginationControls =
+          document.getElementById("paginationControls");
+
+        const totalPages = Math.max(
+          Math.ceil(filteredUsers.length / itemsPerPage),
+          1
+        );
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const paginatedUsers = filteredUsers.slice(start, end);
+
+        listContainer.innerHTML = "";
+
+        if (paginatedUsers.length === 0) {
+          emptyState.classList.remove("hidden");
+          paginationControls.classList.add("hidden");
+        } else {
+          emptyState.classList.add("hidden");
+          paginationControls.classList.remove("hidden");
+
+          const cards = paginatedUsers
+            .map((user) => {
+              const initial =
+                (user.name || "?").trim().charAt(0).toUpperCase() || "?";
+              return `
+                <article class="group relative rounded-2xl border border-slate-200 bg-white p-4 shadow-md transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-sky-400 text-lg font-black text-white shadow-inner">
+                        ${initial}
+                      </div>
+                      <div>
+                        <p class="text-xs uppercase tracking-wide text-slate-400">ID #${
+                          user.id
+                        }</p>
+                        <h3 class="text-lg font-semibold text-slate-900 leading-tight">${
+                          user.name
+                        }</h3>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <button
+                        onclick="openModal(${user.id})"
+                        class="rounded-full border border-slate-200 bg-slate-50 p-2 text-blue-600 transition hover:border-blue-200 hover:bg-blue-50"
+                        title="Chỉnh sửa"
+                      >
+                        <i class="fas fa-pen"></i>
+                      </button>
+                      <button
+                        onclick="deleteUser(${user.id})"
+                        class="rounded-full border border-slate-200 bg-slate-50 p-2 text-red-500 transition hover:border-red-200 hover:bg-red-50"
+                        title="Xóa"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <dl class="mt-4 space-y-2 text-sm text-slate-600">
+                    <div class="flex items-center gap-2">
+                      <i class="fas fa-envelope text-blue-500"></i>
+                      <span class="truncate" title="${user.email}">${
+                user.email
+              }</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <i class="fas fa-phone text-blue-500"></i>
+                      <span class="truncate" title="${user.phone}">${
+                user.phone
+              }</span>
+                    </div>
+                  </dl>
+                </article>
+              `;
+            })
+            .join("");
+
+          listContainer.innerHTML = cards;
+        }
+
+        updatePaginationControls(totalPages);
+        updateCounters();
+      }
+
+      function handleSearch(query) {
+        const lowerQuery = query.toLowerCase();
+        filteredUsers = users.filter((user) =>
+          user.name.toLowerCase().includes(lowerQuery)
+        );
+        currentPage = 1;
+        renderTable();
+      }
+
+      function updatePaginationControls(totalPages) {
+        document.getElementById(
+          "pageInfo"
+        ).innerText = `Page ${currentPage} of ${totalPages}`;
+        document.getElementById("prevBtn").disabled = currentPage === 1;
+        document.getElementById("nextBtn").disabled =
+          currentPage === totalPages;
+      }
+
+      function changePage(direction) {
+        currentPage += direction;
+        renderTable();
+      }
+
+      function openModal(userId = null) {
+        const modal = document.getElementById("userModal");
+        const title = document.getElementById("modalTitle");
+        const form = document.getElementById("userForm");
+
+        form.reset();
+        document.getElementById("userId").value = "";
+
+        if (userId) {
+          const user = users.find((u) => u.id === userId);
+          if (user) {
+            title.innerText = "Edit User";
+            document.getElementById("userId").value = user.id;
+            document.getElementById("name").value = user.name;
+            document.getElementById("email").value = user.email;
+            document.getElementById("phone").value = user.phone;
+          }
+        } else {
+          title.innerText = "Add New User";
+        }
+
+        modal.classList.remove("hidden");
+      }
+
+      function closeModal() {
+        document.getElementById("userModal").classList.add("hidden");
+      }
+
+      function showLoading(isLoading) {
+        const loading = document.getElementById("loading");
+        if (isLoading) loading.classList.remove("hidden");
+        else loading.classList.add("hidden");
+      }
+
+      function showToast(message, type = "success") {
+        const toast = document.getElementById("toast");
+        const toastMsg = document.getElementById("toastMessage");
+        const toastIcon = document.getElementById("toastIcon");
+        const toastBadge = document.getElementById("toastBadge");
+
+        toastMsg.innerText = message;
+        if (type === "error") {
+          toastIcon.className = "fas fa-times";
+          toastBadge.className =
+            "flex h-11 w-11 items-center justify-center rounded-full bg-red-50 text-red-600";
+        } else {
+          toastIcon.className = "fas fa-check";
+          toastBadge.className =
+            "flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-blue-600";
+        }
+
+        toast.classList.remove("opacity-0", "translate-y-4", "scale-95");
+        toast.classList.add("opacity-100", "translate-y-0", "scale-100");
+
+        setTimeout(() => {
+          toast.classList.add("opacity-0", "translate-y-4", "scale-95");
+          toast.classList.remove("opacity-100", "translate-y-0", "scale-100");
+        }, 2500);
+      }
+
+      function updateCounters() {
+        const totalUsersCount = document.getElementById("totalUsersCount");
+        const filteredUsersCount = document.getElementById("filteredUsersCount");
+        if (totalUsersCount) totalUsersCount.innerText = users.length;
+        if (filteredUsersCount)
+          filteredUsersCount.innerText = filteredUsers.length;
+      }
+    </script>
+  </body>
+</html>
