@@ -1,0 +1,296 @@
+#root {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 18px 40px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.hero {
+  background: #0f172a;
+  color: #f1f5f9;
+  padding: 26px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+}
+
+.hero h1 {
+  margin: 4px 0 6px;
+  font-size: 28px;
+}
+
+.eyebrow {
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin: 0;
+  opacity: 0.85;
+}
+
+.sub {
+  margin: 4px 0 0;
+  color: #cbd5e1;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #0ea5e9;
+  color: #0b1220;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.12s ease-in-out;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button.outline {
+  background: transparent;
+  color: #0ea5e9;
+  border-color: #0ea5e9;
+}
+
+.hero .outline {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+button.ghost {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+button.danger {
+  background: #dc2626;
+  color: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 14px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.card h2 {
+  margin: 4px 0 6px;
+}
+
+.muted {
+  color: #475569;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.form input {
+  border: 1px solid #d7deea;
+  border-radius: 8px;
+  padding: 11px 12px;
+  font-size: 15px;
+  background: #f8fafc;
+}
+
+.form input:focus {
+  outline: 2px solid #0ea5e9;
+  border-color: transparent;
+  background: #fff;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.info {
+  margin: 12px 0 0;
+  color: #0f172a;
+  background: #e0f2fe;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #bae6fd;
+}
+
+.error {
+  color: #ef4444;
+  background: #fee2e2;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #fecdd3;
+}
+
+.stats-card .stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin: 10px 0 6px;
+}
+
+.stat {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.stat .label {
+  margin: 0;
+  color: #475569;
+  font-size: 14px;
+}
+
+.stat .value {
+  margin: 4px 0 0;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.list-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.collapse-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: transparent;
+  color: inherit;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: none;
+}
+
+.collapse-toggle:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transform: none;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.18s ease;
+  font-size: 18px;
+}
+
+.arrow.open {
+  transform: rotate(90deg);
+}
+
+.title-block {
+  flex: 1;
+  text-align: left;
+}
+
+.search input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d7deea;
+  background: #f8fafc;
+  min-width: 240px;
+}
+
+.search input:focus {
+  outline: 2px solid #0ea5e9;
+  border-color: transparent;
+  background: #fff;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 11px 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+  background: #f3f4f6;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

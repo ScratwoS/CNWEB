@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: student-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      # Đặt lại nếu cần bảo mật: dùng file .env với MONGO_URI=...
+      - MONGO_URI=${MONGO_URI:-mongodb+srv://CNWEB:scratwos2004@cluster0.t36r4k6.mongodb.net/cn?retryWrites=true&w=majority&appName=Cluster0}
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # VITE_API_URL được ghi vào bundle khi build; mặc định gọi backend trên host
+        - VITE_API_URL=${VITE_API_URL:-http://localhost:5000}
+    container_name: student-frontend
+    ports:
+      - "3333:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
